@@ -14,6 +14,7 @@ use App\Models\ProductImage;
 //Platform Admin Panel View Files Locatation
 class PagesController extends Controller
 {
+
   //To Call HomePage
   public function index()
   {

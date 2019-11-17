@@ -75,6 +75,37 @@
           </div>
         </div>
       </li>
+
+
+      <!-- Nav Item - Pages All Division Manage Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#division" aria-expanded="true" aria-controls="division">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Division</span>
+        </a>
+        <div id="division" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">All Product</h6>
+                 <a class="collapse-item" href="{{route('admin.division.create')}}">Add Division</a>
+                 <a class="collapse-item" href="{{route('admin.division')}}">View All Division</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Pages All District Manage Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#district" aria-expanded="true" aria-controls="district">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>District</span>
+        </a>
+        <div id="district" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">All Product</h6>
+                <a class="collapse-item" href="{{route('admin.district.create')}}">Add District</a>
+                <a class="collapse-item" href="{{route('admin.district')}}">View All District</a>
+          </div>
+        </div>
+      </li>
     
       <!-- Divider -->
       <hr class="sidebar-divider">

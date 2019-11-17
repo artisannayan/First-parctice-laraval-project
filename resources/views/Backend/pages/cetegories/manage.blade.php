@@ -48,8 +48,8 @@
                           @endif
                         </td>
                         <td>
-                          @if( $category->image == NULL )
-                            No Thamnail
+                         @if( $category->image == NULL )
+                                  No Thamnail
                           @else
                           <img src="{{asset('image/category-image/'.$category->image)}}" width="100">
                           @endif

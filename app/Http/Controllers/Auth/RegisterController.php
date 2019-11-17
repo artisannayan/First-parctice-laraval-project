@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Http\Request;
 
-use App\User;
+
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use App\Models\Division;
+use App\Models\District;
+use App\Notifications\VarifyRegistration;
 
 class RegisterController extends Controller
 {
@@ -28,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,6 +46,17 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+     /**
+     *Override Form data
+     *
+     * @return void view
+     */
+    public function showRegistrationForm()
+    {
+       $divisions = Division::orderBy('priority','asc')->get();
+       $districts = District::orderBy('name','asc')->get();
+       return view('auth.register',compact('divisions','districts'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,9 +66,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name'    => 'required|string|max:40',
+            'last_name'     => 'nullable|string|max:40',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'required|string|min:8|confirmed',
+            'division_id'   => 'nullable|numeric',
+            'district_id'   => 'nullable|numeric',
+            'phone'         => 'required|Max:18',
+            'address'       => 'required|Max:100',
         ]);
     }
 
@@ -61,12 +83,27 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+      $user = User::create([
+            'first_name'     => $request->first_name,
+            'last_name'      => $request->last_name,
+            'username'       => str_slug($request->first_name.$request->last_name),
+            'phone'          =>$request->phone,
+            'email'          => $request->email,
+            'password'       => Hash::make($request->password),
+            'address'        =>$request->address,
+            'division_id'    =>$request->division_id,
+            'district_id'    =>$request->district_id,
+            'ip_address'     => request()->ip(),
+            'remember_token' => str_random(50),
+            'status'         => 0,
         ]);
+
+       $user->notify(new VarifyRegistration($user));
+       
+      session()->flash('success', 'A Confirmation email has sent to you...Please Check and confirm your email');
+     return redirect('/');
+
     }
 }

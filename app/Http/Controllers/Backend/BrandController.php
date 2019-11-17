@@ -76,7 +76,7 @@ class BrandController extends Controller
    
     $brand = Brand::find($id);
     if(!is_null($brand)){
-      return view('Backend.pages.brands.editbrands', compact('brand'));
+         return view('Backend.pages.brands.editbrands', compact('brand'));
     }else{
       return route('admin.brands');
     }

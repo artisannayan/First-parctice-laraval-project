@@ -68,20 +68,20 @@
               <a href="product.html">
                  @php $i = 1; @endphp
 
-                 @foreach($product->images as $image)
-                 @if($i > 0)
-                <img src="{{asset('image/product-image/'.$image->image)}}" title="lorem ippsum dolor dummy" class="img-responsive" style="height: 250px; width: 350px;" >
+            @foreach( $product->images as $image )
+               @if($i > 0)
+                <img src="{{ asset('image/product-image/'.$image->image) }}" title="lorem ippsum dolor dummy" class="img-responsive" style="height: 250px; width: 350px;" >
                @endif
-
                @php $i--; @endphp
 
                @endforeach
               </a>
 
               <div class="button-group">
-                <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
-                <button type="button" class="addtocart-btn">Add to Cart</button>
-                <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
+                {{-- <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button> --}}
+                {{-- <button type="button" class="addtocart-btn">Add to Cart</button> --}}
+             @include('Frontend.pages.partial.cart-button')
+                {{-- <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button> --}}
               </div>
             </div>
             <div class="caption product-detail">
@@ -95,8 +95,8 @@
               <span class="price-old"></span>
               {{$product->price}}
               @else
-              <span class="price-old">{{$product->price}}</span>
-             {{ $product->offer_price}}
+              <span class="price-old">{{ $product->price }}</span>
+             {{ $product->offer_price }}
               @endif
                 
             <div class="rating">
@@ -108,9 +108,9 @@
                </div>
             </div>
             <div class="button-group">
-              <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
-              <button type="button" class="addtocart-btn">Add to Cart</button>
-              <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
+              {{-- <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button> --}}
+              @include('Frontend.pages.partial.cart-button')
+              {{-- <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button> --}}
             </div>
           </div>
         </div>

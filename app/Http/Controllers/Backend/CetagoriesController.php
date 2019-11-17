@@ -89,35 +89,6 @@ class CetagoriesController extends Controller
 
 //Cetagory Delete Korar jonno ei code use kora hoy
 
-public function category_delete($id)
-
-//If It is Parent Category , Then we will delete all its sub Category
-
-  {
-    $category = Cetagory::find($id);
-    if (!is_null($category)) {
-
-      if($category->parent_id == NULL){
-        //Delete Sub Category
-        $sub_cetagories = cetagory::orderBy('name', 'asc')->where('parent_id', $category->id)->get();
-        foreach ($sub_cetagories as $sub) {
-          if(File::exists('image/category-image/' .$sub->image)){
-          File::delete('image/category-image /'.$sub->image);
-        }
-           $sub->delete();
-        }
-
-      }
-      if(File::exists('image/category-image/' .$category->image)){
-          File::delete('image/category-image /'.$category->image);
-      }
-      $category->delete();
-      return back();
-    }
-  }
-
-
-
 
 
  public function category_update(Request $request, $id)
@@ -146,7 +117,7 @@ public function category_delete($id)
     if ($request->image) {
 
       if(File::exists('image/category-image/' .$category->image)){
-          File::delete('image/category-image /'.$category->image);
+         File::delete('image/category-image /'.$category->image);
       }
       $image = $request->file('image');
       $img = time() . '.' . $image->getClientOriginalExtension();
@@ -163,6 +134,31 @@ public function category_delete($id)
     return redirect()->route('managecategory');
   }
 
+  public function category_delete($id)
 
+  //If It is Parent Category , Then we will delete all its sub Category
+  
+    {
+      $category = Cetagory::find($id);
+      if (!is_null($category)) {
+  
+        if($category->parent_id == NULL){
+          //Delete Sub Category
+          $sub_cetagories = cetagory::orderBy('name', 'asc')->where('parent_id', $category->id)->get();
+          foreach ($sub_cetagories as $sub) {
+            if(File::exists('image/category-image/' .$sub->image)){
+            File::delete('image/category-image /'.$sub->image);
+          }
+             $sub->delete();
+          }
+  
+        }
+        if(File::exists('image/category-image/' .$category->image)){
+            File::delete('image/category-image /'.$category->image);
+        }
+        $category->delete();
+        return back();
+      }
+    }
 
 }

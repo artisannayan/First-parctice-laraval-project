@@ -10,7 +10,7 @@
 <div class="container">
   <ul class="breadcrumb">
     <li><a href="{{route('index')}}"><i class="fa fa-home"></i></a></li>
-    <li><a href="{{route('products.show' , $product->slug)}}">{{$product->title}}</a></li>
+   <li><a href="{{route('products.show' , $product->slug)}}">{{$product->title}}</a></li>
   </ul>
   <div class="row">
 

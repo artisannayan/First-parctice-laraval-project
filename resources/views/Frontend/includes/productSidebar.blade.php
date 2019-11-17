@@ -7,13 +7,13 @@
             @foreach(App\Models\cetagory::orderBy('name','asc')->where('parent_id', NULL)->get() as $parent)
             
              <li>
-              <a href="#" class="activSub">{{$parent->name}}</a>
+                <a href="{{route('products.show',$parent->id)}}" class="activSub">{{$parent->name}}</a>
 
             @foreach(App\Models\cetagory::orderBy('name','asc')->where('parent_id', $parent->id)->get() as $child)
                <ul>
-                <li><a href="{{route('category.show',$child->id)}}">{{$child->name}}</a></li>
+                   <li><a href="{{route('category.show',$child->id)}}">{{$child->name}}</a></li>
               </ul>
-               @endforeach
+            @endforeach
              </li>
           @endforeach
           </ul>

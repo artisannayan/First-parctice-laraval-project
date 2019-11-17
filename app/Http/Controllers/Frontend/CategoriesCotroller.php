@@ -32,7 +32,23 @@ class CategoriesCotroller extends Controller
    	return redirect('/');
    }
   }
+ /*
+ *PaentorNot
+ *
+ * Chaking thet if the category is parent or not
+ * 
+ * @param int $parent_id
+ * @parem int $child
+ * 
+ */
  
-
+  public static function parenttorNot($paretn_id, $child_id){
+    $caterories = Cetagory::where('id',$child_id)->where($parent_id)->get();
+    if(!is_null($caterories)){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 }

@@ -20,11 +20,6 @@ class ProductsController extends Controller
         return view('pages.products')->with('products',$product);
     }
 
-
-
-
-
-
   //Product All pages Start
   //Add new product
   public function createproduct()

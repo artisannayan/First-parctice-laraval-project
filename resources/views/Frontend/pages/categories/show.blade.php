@@ -78,73 +78,61 @@
 
         @if( $products->count() > 0 )
 
-            @foreach( $products as $product )
+            @foreach($products as $product)
+         <div class="product-layout product-list col-xs-12">
+          <div class="product-thumb">
+            <div class="image product-imageblock">
 
+              <a href="product.html">
+                 @php $i = 1; @endphp
 
-            <!-- Single Product Item Start -->
-            <div class="product-layout product-list col-xs-12">
-              <div class="product-thumb">
+                 @foreach($product->images as $image)
+                 @if($i > 0)
+                <img src="{{asset('image/product-image/'.$image->image)}}" title="lorem ippsum dolor dummy" class="img-responsive" style="height: 250px; width: 350px;" >
+               @endif
 
-                <div class="image product-imageblock"> 
-                  
-                    <a href="{{ route('products.show', $product->slug ) }}"> 
-                      @php $i = 1; @endphp 
-                      @foreach ($product->images as $image)
-                        @if ($i > 0)
-                          <img src="{{ asset('image/product-image/' . $image->image ) }}" alt="" class="img-responsive" />
-                        @endif
-                        @php $i--; @endphp 
-                      @endforeach
-                    </a>
+               @php $i--; @endphp
 
-                  <div class="button-group">
-                      <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
-                      <button type="button" class="addtocart-btn">Add to Cart</button>
-                      <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
-                  </div>
-                </div>
+               @endforeach
+              </a>
 
-                <div class="caption product-detail">
-                  <!-- Product Name -->
-                  <h4 class="product-name"> 
-
-                    <a href="{{ route('products.show', $product->slug ) }}" title="lorem ippsum dolor dummy"> {{ $product->title }} </a> </h4>
-
-                  <!-- Product Description -->
-                  <p class="product-desc"> {{ $product->description }} </p>
-
-                  <!-- Product Price -->
-                  <p class="price product-price">       
-                      @if ( is_null( $product->offer_price ) )
-                        <span class="price-old"></span>
-                        {{ $product->price }}
-                      @else
-                        <span class="price-old">{{ $product->price }}</span>
-                        {{ $product->offer_price }}
-                      @endif                  
-                  </p>               
-
-
-                  <div class="rating"> 
-                    <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> 
-                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span><span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
-                  </div>
-
-                </div>
-
-                <div class="button-group">
-                  <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
-                  <button type="button" class="addtocart-btn">Add to Cart</button>
-                  <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
-                </div>
-
+              <div class="button-group">
+                <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+                <button type="button" class="addtocart-btn">Add to Cart</button>
+                <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
               </div>
             </div>
-            <!-- Single Product Item End -->
-          @endforeach
+            <div class="caption product-detail">
+              <!-- Product Name -->
+              <h4 class="product-name"> <a href="product.html" title="lorem ippsum dolor dummy"> {{$product->title}} </a> </h4>
 
+              <!--Product Description -->
+              <p class="product-desc">{{$product->desc}}</p>
+
+              @if( is_null($product->offer_price))
+              <span class="price-old"></span>
+              {{$product->price}}
+              @else
+              <span class="price-old">{{$product->price}}</span>
+             {{ $product->offer_price}}
+              @endif
+                
+            <div class="rating">
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> 
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> 
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> 
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+               </div>
+            </div>
+            <div class="button-group">
+              <button type="button" class="wishlist" data-toggle="tooltip" title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
+              <button type="button" class="addtocart-btn">Add to Cart</button>
+              <button type="button" class="compare" data-toggle="tooltip" title="Compare this Product"><i class="fa fa-exchange"></i></button>
+            </div>
+          </div>
+        </div>
+         @endforeach
         @else
             <div class="alert alert-warning">No Product Found in this Category.</div>
         @endif

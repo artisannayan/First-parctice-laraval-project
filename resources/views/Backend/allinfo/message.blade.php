@@ -1,9 +1,7 @@
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
-        	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        	<a href="#" class="close" data-dimidd="alert" aria-lavel="close">&times;</a>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -11,9 +9,29 @@
     </div>
 @endif
 
-
-{{-- @if(Session::has('errors'))
-<div class="alert alert-danger">
-    <p>{{ Session::get('errors') }}</p>
+@if(Session::has('success'))
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="alert alert-success">
+             <p>{{ Session::get('success')}}</p>
+        </div>
+      </div>
+    </div>
 </div>
-@endif --}}
+
+
+  
+@endif
+
+ @if(Session::has('errors'))
+ <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="alert alert-danger">
+         <p>{{ Session::get('errors') }}</p>
+        </div>
+      </div>
+    </div>
+</div>
+@endif 

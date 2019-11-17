@@ -55,7 +55,7 @@
                          <select class="form-control" name="brand_id">
                           <option value="">Please Select Product Brand</option>
                            @foreach(App\Models\brand::orderBy('name','asc')->get() as $brand)
-                           <option value="{{ $brand->id }}">{{$brand->name}}</option>
+                                 <option value="{{ $brand->id }}">{{$brand->name}}</option>
                            @endforeach
                          </select>
                      </div>

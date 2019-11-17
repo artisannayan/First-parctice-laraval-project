@@ -33,6 +33,35 @@ Route::get('/category/{id}','Frontend\CategoriesCotroller@show')->name('category
 });
   
 
+//User Route
+Route::group(['prefix'=> 'user'],function(){
+      Route::get('/token/{token}','Frontend\VarificationController@varify')->name('user.varification');
+      Route::get('/dashbord','Frontend\UsersController@dashboard')->name('user.dashboard');
+      Route::get('/profile','Frontend\UsersController@profile')->name('user.profile');
+      Route::post('/update','Frontend\UsersController@profileUpadate')->name('user.profileUpdate');
+});
+
+
+
+//Cart route page
+Route::group(['prefix'=> 'cart'],function(){
+  Route::get('/','Frontend\CartController@index')->name('carts');
+  Route::post('/store','Frontend\CartController@store')->name('carts.store');
+  Route::post('/update/{id}','Frontend\CartController@update')->name('carts.update');
+  Route::post('/destroy/{id}','Frontend\CartController@destroy')->name('carts.destroy');
+});
+
+//Check Out route page
+Route::group(['prefix'=> 'checkout'],function(){
+  Route::get('/','Frontend\CheckoutController@index')->name('chekouts');
+  Route::post('/store','Frontend\CheckoutController@store')->name('chekouts.store');
+
+});
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | All Back End Page are Done here in this list Start
@@ -46,6 +75,10 @@ Route::get('/category/{id}','Frontend\CategoriesCotroller@show')->name('category
  --------------------------------------------------------------------------*/
      Route::group(['prefix' => 'admin'],function(){
      Route::get('/','Backend\PagesController@index')->name('dashbord');
+
+     //Admin Login Route
+     Route::get('/login','Auth\Admin\LoginController@showLoginForm')->name('admin.login');
+     Route::post('/login/submit','Auth\Admin\LoginController@login')->name('admin.login.submit');
 
 
 
@@ -122,9 +155,57 @@ Route::get('/category/{id}','Frontend\CategoriesCotroller@show')->name('category
 
 
 
+ /*--------------------------------------------------------------------------    
+ Division Back End Pages Routs Start
+ --------------------------------------------------------------------------*/
+ Route::group(['prefix' =>'division'],function(){
+
+  Route::get('/manage','Backend\DivisionController@index')->name('admin.division');
+
+  Route::get('/division/create','Backend\DivisionController@division_create')->name('admin.division.create');
+  Route::get('/division/edit/{id}','Backend\DivisionController@division_edit')->name('admin.division.edit');
+
+ //Add Brands form  Create page
+  Route::post('/division/crteatedivision','Backend\DivisionController@division_store')->name('admin.division.store');
+  Route::post('/division/edit/{id}','Backend\DivisionController@division_update')->name('admin.division.update');
+  Route::post('/division/delete/{id}','Backend\DivisionController@division_delete')->name('admin.division.delete');
+
+  });
+ 
+/*--------------------------------------------------------------------------    
+Division Back End Pages Routs End
+--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------    
+ Division Back End Pages Routs Start
+ --------------------------------------------------------------------------*/
+ Route::group(['prefix' =>'district'],function(){
+
+  Route::get('/manage','Backend\DistrictController@index')->name('admin.district');
+
+  Route::get('/district/create','Backend\DistrictController@district_create')->name('admin.district.create');
+  Route::get('/district/edit/{id}','Backend\DistrictController@district_edit')->name('admin.district.edit');
+
+ //Add district form  Create page
+  Route::post('/district/crteatedistrict','Backend\DistrictController@district_store')->name('admin.district.store');
+  Route::post('/district/edit/{id}','Backend\DistrictController@district_update')->name('admin.district.update');
+  Route::post('/district/delete/{id}','Backend\DistrictController@district_delete')->name('admin.district.delete');
+
+  });
+ 
+/*--------------------------------------------------------------------------    
+Division Back End Pages Routs End
+--------------------------------------------------------------------------*/
+
  
   });
 
 
 
 
+/*Login Register Forgot Password Routes->user auth */
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
